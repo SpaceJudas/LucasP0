@@ -1,0 +1,100 @@
+drop table if exists questions;
+drop table if exists gametag;
+drop table if exists videogames;
+drop table if exists tags;
+
+
+
+create table tags (
+	tag_id int primary key,
+	tag_description varchar(255)
+	);
+
+create table questions (
+	questions_id int primary key,
+	question varchar(255),
+	tag1 varchar(255),
+	tag2 varchar(255),
+
+);
+
+create table videogames (
+	game_id int primary key,
+	title varchar(255),
+	description varchar(255)
+);
+
+create table gametag (
+videogames int primary key,
+tags int,
+--pointincrement int,
+foreign key (videogames) references videogames(game_id),
+foreign key (tags) references tags(tag_id)
+);
+
+insert into tags(tag_id, tag_description) values
+(1, 'calming'),
+(2, 'exciting'),
+(3, 'open world'),
+(4, 'non-open world'),
+(5, 'shooter'),
+(6, 'non-shooter'),
+(7, 'grindy'),
+(8, 'non-grindy'),
+(9, 'violent'),
+(10, 'non-violent')
+;
+
+insert into questions(questions_id, question, tag1, tag2) values
+(1, 'Do you play video games to relax or to get fired up?', 'calming', 'exciting'),
+(2, 'Do you like to roam free or be guided on your path?', 'open world', 'non open world'),
+(3, 'Do you want to play a shooter game?', 'shooter', 'non-shooter'),
+(4, 'Do you like boring grindy games?', 'grindy', 'not-grindy'),
+(5, 'Are you looking for a violent game?', 'violent', 'non-violent')
+;
+
+
+insert into videogames(game_id, title, description) values
+(1, 'The Halo Series', 'Halo description'),
+(2, 'Runescape', 'RS description'),
+(3, 'Mass Effect', 'Description'),
+(4, 'Dead by Daylight', 'Dbd description'),
+(5, 'Breath of the Wild', 'Botw description'),
+(6, 'Animal Crossing', 'Acnh description'),
+(7, 'Pokemon go', 'pg description'),
+(8, 'Elden Ring', 'elden ring description')
+
+;
+insert into gametag(videogames, tags) values
+(1, 1),
+(2, 7),
+(3, 5),
+(4, 2),
+(5, 3),
+(6, 1),
+(7, 9),
+(8, 9)
+
+;
+
+
+select * from videogames;
+select * from questions;
+select * from tags;
+select * from gametag;
+
+
+select *
+from tags
+inner join gametag
+on tags.tag_id = gametag.videogames
+;
+
+select *
+from videogames
+inner join gametag
+on videogames.game_id = gametag.videogames
+;
+
+--select * from painting inner join artist on artist.artist_id = painting.artist;
+
